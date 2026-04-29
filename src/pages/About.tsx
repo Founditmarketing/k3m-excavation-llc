@@ -38,9 +38,13 @@ const About = () => {
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-20 items-center">
             <div className="relative">
-              <div className="aspect-[4/5] bg-zinc-100 border border-black/5 relative overflow-hidden">
-                {/* Image Placeholder with consistent style */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-black/20 to-transparent" />
+              <div className="aspect-[4/5] bg-zinc-100 border border-black/5 relative overflow-hidden group">
+                <img 
+                  src="/k3m8.jpg" 
+                  alt="K3M Excavation Operations" 
+                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" 
+                />
+                <div className="absolute inset-0 bg-gradient-to-tr from-black/20 to-transparent pointer-events-none" />
               </div>
               {/* Technical Badge */}
               <div className="absolute -bottom-10 -right-10 bg-brand-red text-white p-10 hidden md:block">

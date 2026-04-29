@@ -30,7 +30,7 @@ const SERVICES: Service[] = [
     description: "Reclaim your land with high-flow forestry mulching and professional clearing services.",
     icon: Trees,
     path: "/services/land-clearing",
-    image: "https://images.unsplash.com/photo-1541625602330-2277a1cd13a1?q=80&w=1200&auto=format&fit=crop"
+    image: "/k3m1.jpg"
   },
   {
     id: "grading",
@@ -38,7 +38,7 @@ const SERVICES: Service[] = [
     description: "Precision grading and pad construction using the latest GPS site technology.",
     icon: Ruler,
     path: "/services/site-prep",
-    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=1200&auto=format&fit=crop"
+    image: "/k3m2.jpg"
   },
   {
     id: "infrastructure",
@@ -46,7 +46,7 @@ const SERVICES: Service[] = [
     description: "Durable access roads, driveways, and specialized roadway stabilization.",
     icon: HardHat,
     path: "/services/driveways",
-    image: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=1200&auto=format&fit=crop"
+    image: "/k3m3.jpg"
   },
   {
     id: "drainage",
@@ -54,7 +54,7 @@ const SERVICES: Service[] = [
     description: "Stock ponds, drainage correction, and water management solutions that last.",
     icon: Waves,
     path: "/services/drainage",
-    image: "https://images.unsplash.com/photo-1533991022833-c59748308cdc?q=80&w=1200&auto=format&fit=crop"
+    image: "/pond_drainage_excavation.png"
   },
   {
     id: "demolition",
@@ -62,7 +62,7 @@ const SERVICES: Service[] = [
     description: "Structural removal and site restoration with surgical demolition techniques.",
     icon: Hammer,
     path: "/services/demolition",
-    image: "https://images.unsplash.com/photo-1503387837-b154d5074bd2?q=80&w=1200&auto=format&fit=crop"
+    image: "/demolition_service.png"
   },
   {
     id: "utilities",
@@ -70,7 +70,7 @@ const SERVICES: Service[] = [
     description: "Utility trenching, routing, and backfill for water, electrical, and fiber.",
     icon: Settings,
     path: "/services/utilities",
-    image: "https://images.unsplash.com/photo-1590486803833-ffc6f78d2847?q=80&w=1200&auto=format&fit=crop"
+    image: "/utilities_service.png"
   },
 ];
 
@@ -122,13 +122,12 @@ const Navbar = () => {
       isScrolled ? "bg-black py-4 border-b border-white/10" : "bg-black py-6"
     )}>
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center text-white">
-        <Link to="/" className="flex items-center gap-3 group cursor-pointer shrink-0">
-          <div className="w-10 h-11 bg-brand-red hex-container flex items-center justify-center transition-transform group-hover:rotate-12">
-            <span className="text-white font-display font-black text-xl italic mt-0.5">K</span>
-          </div>
-          <span className="font-display font-extrabold text-2xl tracking-tighter uppercase italic">
-            K3M <span className="text-brand-red">EXCAVATION</span>
-          </span>
+        <Link to="/" className="flex items-center group cursor-pointer shrink-0 transition-all">
+          <img 
+            src="/k3m logo.jpeg" 
+            alt="K3M Excavation" 
+            className="h-12 w-auto object-contain transition-all duration-300 mix-blend-screen filter invert hue-rotate-180 brightness-110 contrast-125" 
+          />
         </Link>
 
         <div className="hidden md:flex items-center gap-10">
@@ -255,9 +254,9 @@ const Hero = () => {
         <div className="w-full lg:w-3/5 p-8 md:p-16 lg:p-24 flex flex-col justify-center relative overflow-hidden bg-white">
           {/* Site Texture Background */}
           <div 
-            className="absolute inset-0 opacity-[0.12] grayscale pointer-events-none"
+            className="absolute inset-0 opacity-20 pointer-events-none"
             style={{ 
-              backgroundImage: 'url("https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2000&auto=format&fit=crop")',
+              backgroundImage: 'url("/k3m10.jpg")',
               backgroundSize: 'cover',
               backgroundPosition: 'center'
             }}
@@ -416,7 +415,7 @@ const K3MCore = () => {
       <div 
         className="absolute inset-0 opacity-40 grayscale pointer-events-none"
         style={{ 
-          backgroundImage: 'url("https://images.unsplash.com/photo-1581094288338-2314dddb7ecc?q=80&w=2000&auto=format&fit=crop")',
+          backgroundImage: 'url("/k3m7.jpg")',
           backgroundSize: 'cover',
           backgroundPosition: 'center'
         }}
@@ -447,9 +446,18 @@ const K3MCore = () => {
   );
 };
 
+const PORTFOLIO_IMAGES = [
+  { id: 1, url: "/k3m7.jpg", classes: "md:row-span-2" },
+  { id: 2, url: "/k3m8.jpg", classes: "" },
+  { id: 3, url: "/k3m9.jpg", classes: "" },
+  { id: 4, url: "/k3m1.jpg", classes: "md:col-span-2" },
+];
+
 const Portfolio = () => {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
   return (
-    <section id="portfolio" className="pt-24 pb-12 bg-zinc-50 overflow-hidden">
+    <section id="portfolio" className="pt-24 pb-12 bg-zinc-50 overflow-hidden relative">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-16">
           <div>
@@ -472,17 +480,54 @@ const Portfolio = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-[300px]">
-          {[1, 2, 3, 4].map((i) => (
-            <div key={i} className={cn(
-              "bg-zinc-200 border border-black/5 relative group overflow-hidden",
-              i === 1 && "md:row-span-2",
-              i === 4 && "md:col-span-2"
-            )}>
-              <div className="absolute inset-0 bg-brand-red/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+          {PORTFOLIO_IMAGES.map((img) => (
+            <div 
+              key={img.id} 
+              className={cn(
+                "bg-zinc-200 border border-black/5 relative group overflow-hidden cursor-pointer",
+                img.classes
+              )}
+              onClick={() => setSelectedImage(img.url)}
+            >
+              <img 
+                src={img.url} 
+                alt={`Portfolio Project ${img.id}`} 
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
             </div>
           ))}
         </div>
       </div>
+
+      {/* Lightbox Modal */}
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4 md:p-8"
+            onClick={() => setSelectedImage(null)}
+          >
+            <button 
+              className="absolute top-8 right-8 text-white hover:text-brand-red transition-colors z-10"
+              onClick={() => setSelectedImage(null)}
+            >
+              <X className="w-8 h-8" />
+            </button>
+            <motion.img
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              src={selectedImage}
+              alt="Enlarged project"
+              className="max-w-full max-h-full object-contain shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
@@ -635,13 +680,12 @@ const Footer = () => {
 
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 relative z-10">
         <div className="flex flex-col items-start">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-8 h-9 bg-brand-red hex-container flex items-center justify-center">
-                <span className="text-white font-display font-black text-lg italic mt-0.5">K</span>
-              </div>
-              <span className="font-display font-extrabold text-xl tracking-tighter text-white uppercase italic">
-                K3M <span className="text-brand-red">EXCAVATION</span>
-              </span>
+            <div className="flex items-center gap-3 mb-6 inline-block">
+              <img 
+                src="/k3m logo.jpeg" 
+                alt="K3M Excavation" 
+                className="h-12 w-auto object-contain mix-blend-screen filter invert hue-rotate-180 brightness-110 contrast-125" 
+              />
             </div>
             <p className="text-zinc-500 text-xs leading-relaxed max-w-xs italic uppercase font-bold tracking-wider">
                20 years of excavation mastery. Family-owned operations in Mount Pleasant and Northeast Texas.

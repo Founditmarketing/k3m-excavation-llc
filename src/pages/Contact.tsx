@@ -118,7 +118,7 @@ const Contact = () => {
             <div className="w-10 h-[2px] bg-brand-red" />
             <span className="uppercase tracking-[0.4em] font-black text-brand-red text-xs italic">Direct Communication</span>
           </div>
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black italic uppercase leading-none mb-4">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-black italic uppercase leading-none mb-4">
             GET IN <span className="text-brand-red">TOUCH.</span>
           </h1>
           <p className="text-zinc-400 text-lg md:text-xl italic max-w-xl">
@@ -151,7 +151,9 @@ const Contact = () => {
                         <Mail className="w-5 h-5 text-brand-red" />
                         <span className="uppercase font-black text-xs tracking-widest text-zinc-400 italic">Official Inquiries</span>
                      </div>
-                     <p className="text-2xl font-black italic tracking-tight mb-2">ops@k3mexcavation.com</p>
+                     <p className="text-2xl font-black italic tracking-tight mb-2 underline decoration-brand-red/30 hover:text-brand-red transition-colors">
+                        <a href="mailto:ops@k3mexcavation.com">ops@k3mexcavation.com</a>
+                     </p>
                      <p className="text-sm text-zinc-500">Send blueprints and RFP docs.</p>
                   </div>
 

@@ -1,75 +1,76 @@
-import { motion } from "motion/react";
-import { Maximize2, Camera } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
+import { Camera, X } from "lucide-react";
+import { useState } from "react";
 
 const GALLERY_IMAGES = [
   {
-    url: "https://images.unsplash.com/photo-1541625602330-2277a1cd13a1?q=80&w=1200&auto=format&fit=crop",
+    url: "/k3m1.jpg",
     title: "Commercial Site Prep",
     category: "Site Prep",
     size: "col-span-2 row-span-2"
   },
   {
-    url: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=800&auto=format&fit=crop",
+    url: "/k3m2.jpg",
     title: "Forestry Mulching",
     category: "Land Clearing",
     size: "col-span-1 row-span-1"
   },
   {
-    url: "https://images.unsplash.com/photo-1533991022833-c59748308cdc?q=80&w=800&auto=format&fit=crop",
+    url: "/k3m3.jpg",
     title: "Pond Excavation",
     category: "Drainage",
     size: "col-span-1 row-span-1"
   },
   {
-    url: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=1200&auto=format&fit=crop",
+    url: "/k3m4.jpg",
     title: "Retaining Wall Base",
     category: "Infrastructure",
     size: "col-span-1 row-span-1"
   },
   {
-    url: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?q=80&w=800&auto=format&fit=crop",
+    url: "/k3m5.jpg",
     title: "Subgrade Compaction",
     category: "Site Prep",
     size: "col-span-1 row-span-1"
   },
   {
-    url: "https://images.unsplash.com/photo-1517581177682-a085bb7ffb15?q=80&w=800&auto=format&fit=crop",
+    url: "/k3m6.jpg",
     title: "Residential Clearing",
     category: "Land Clearing",
     size: "col-span-2 row-span-1"
   },
   {
-    url: "https://images.unsplash.com/photo-1590486803833-ffc6f78d2847?q=80&w=1200&auto=format&fit=crop",
+    url: "/k3m7.jpg",
     title: "Utility Trenching",
     category: "Utilities",
     size: "col-span-2 row-span-1"
   },
   {
-    url: "https://images.unsplash.com/photo-1579762593175-202120cc7e85?q=80&w=800&auto=format&fit=crop",
+    url: "/k3m8.jpg",
     title: "Driveway Grading",
     category: "Infrastructure",
     size: "col-span-1 row-span-2"
   },
   {
-    url: "https://images.unsplash.com/photo-1503387837-b154d5074bd2?q=80&w=1200&auto=format&fit=crop",
+    url: "/k3m9.jpg",
     title: "Structural Demolition",
     category: "Demolition",
     size: "col-span-1 row-span-2"
   },
   {
-    url: "https://images.unsplash.com/photo-1525235555444-245f7823b497?q=80&w=800&auto=format&fit=crop",
+    url: "/k3m1.jpg",
     title: "Culvert Install",
     category: "Infrastructure",
     size: "col-span-2 row-span-2"
   },
   {
-    url: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=800&auto=format&fit=crop",
+    url: "/k3m2.jpg",
     title: "GPS Site Mapping",
     category: "Site Prep",
     size: "col-span-2 row-span-1"
   },
   {
-    url: "https://images.unsplash.com/photo-1516937622598-f848981e4ae9?q=80&w=800&auto=format&fit=crop",
+    url: "/k3m3.jpg",
     title: "Pasture Restoration",
     category: "Land Clearing",
     size: "col-span-2 row-span-1"
@@ -77,11 +78,13 @@ const GALLERY_IMAGES = [
 ];
 
 const GalleryPage = () => {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
   return (
-    <div className="pt-24 min-h-screen bg-white">
+    <div className="pt-24 min-h-screen bg-white relative">
       {/* Header section */}
       <section className="bg-black text-white py-20 md:py-28 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center" />
+        <div className="absolute inset-0 opacity-20 bg-[url('/k3m10.jpg')] bg-cover bg-center" />
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <div className="flex items-center gap-4 mb-6">
             <div className="h-[2px] w-12 bg-brand-red" />
@@ -113,18 +116,14 @@ const GalleryPage = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.05 }}
-                  className={`${img.size} relative group overflow-hidden bg-zinc-100 border border-zinc-200`}
+                  className={`${img.size} relative group overflow-hidden bg-zinc-100 border border-zinc-200 cursor-pointer`}
+                  onClick={() => setSelectedImage(img.url)}
                 >
                   <img 
                     src={img.url} 
                     alt={img.title} 
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" 
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8">
-                    <p className="text-brand-red text-[10px] font-black uppercase tracking-widest mb-1 italic">{img.category}</p>
-                    <h4 className="text-white text-xl font-black uppercase italic italic leading-none">{img.title}</h4>
-                    <Maximize2 className="absolute top-6 right-6 w-5 h-5 text-white/50" />
-                  </div>
                 </motion.div>
               ))}
            </div>
@@ -139,6 +138,36 @@ const GalleryPage = () => {
             </p>
          </div>
       </section>
+
+      {/* Lightbox Modal */}
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4 md:p-8"
+            onClick={() => setSelectedImage(null)}
+          >
+            <button 
+              className="absolute top-8 right-8 text-white hover:text-brand-red transition-colors z-10"
+              onClick={() => setSelectedImage(null)}
+            >
+              <X className="w-8 h-8" />
+            </button>
+            <motion.img
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              src={selectedImage}
+              alt="Enlarged project"
+              className="max-w-full max-h-full object-contain shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
