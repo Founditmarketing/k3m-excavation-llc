@@ -57,10 +57,14 @@ const About = () => {
               <h2 className="text-4xl font-black italic uppercase italic">The K3M Standard</h2>
               <div className="h-1 w-20 bg-brand-red" />
               <p className="text-zinc-600 leading-relaxed italic">
-                Founded in Mount Pleasant, Texas, K3M Excavation was built on the principle that precision shouldn't be a luxury—it should be the baseline. We saw a need for an excavation contractor that combined old-school work ethic with modern technology.
+                Fueled by our faith and inspired by our commitment to innovation, we aim to steward what we have been given to earn unparalleled trust as we deliver exceptional value to our employees and customers.
               </p>
               <p className="text-zinc-600 leading-relaxed italic">
-                Today, we lead the region in high-grade site prep, utilizing GPS-guided machinery to ensure that every pad, driveway, and drainage system is engineered for longevity. When we break ground, we do it with the future of your property in mind.
+                K3M Excavation exists to honor God through honest work, exceptional service, and lasting relationships.
+                We believe our word matters, integrity matters, and people matter. From site preparation and grading to drainage and land development, we are committed to delivering precision workmanship, transparent communication, and dependable results on every project.
+              </p>
+              <p className="text-zinc-600 leading-relaxed italic">
+                Our mission is simple: build strong foundations, serve people well, and glorify Christ through the way we operate every day.
               </p>
               
               <div className="pt-10 grid grid-cols-2 gap-8">
@@ -70,7 +74,7 @@ const About = () => {
                  </div>
                  <div>
                     <h4 className="text-brand-red font-black text-xs uppercase tracking-widest mb-4 italic">GPS Guided</h4>
-                    <p className="text-xs text-zinc-500 italic">Accuracy to the inch using the industry's latest site tech.</p>
+                    <p className="text-xs text-zinc-500 italic">High-accuracy site tech delivering tolerances to within a tenth of a foot.</p>
                  </div>
               </div>
             </div>
