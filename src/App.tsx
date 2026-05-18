@@ -256,7 +256,7 @@ const Hero = () => {
           <div 
             className="absolute inset-0 opacity-20 pointer-events-none"
             style={{ 
-              backgroundImage: 'url("/utilities_service.png")',
+              backgroundImage: 'url("/k3m_hero.jpg")',
               backgroundSize: 'cover',
               backgroundPosition: 'center'
             }}
