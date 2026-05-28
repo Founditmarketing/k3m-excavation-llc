@@ -194,7 +194,7 @@ const Contact = () => {
                         <span className="uppercase font-black text-xs tracking-widest text-zinc-400 italic">Official Inquiries</span>
                      </div>
                      <p className="text-2xl font-black italic tracking-tight mb-2 underline decoration-brand-red/30 hover:text-brand-red transition-colors">
-                        <a href="mailto:ops@k3mexcavation.com">ops@k3mexcavation.com</a>
+                        <a href="mailto:k3mllc@hotmail.com">k3mllc@hotmail.com</a>
                      </p>
                      <p className="text-sm text-zinc-500">Send blueprints and RFP docs.</p>
                   </div>
