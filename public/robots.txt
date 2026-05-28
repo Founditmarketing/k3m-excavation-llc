@@ -1,0 +1,12 @@
+# K3M Excavation LLC - robots.txt
+# https://k3mexcavation.com
+
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://k3mexcavation.com/sitemap.xml
+
+# LLMs.txt
+# See https://k3mexcavation.com/llms.txt for AI-readable site info
