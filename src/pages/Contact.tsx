@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { motion } from "motion/react";
 import { Phone, Mail, MapPin, ArrowRight, Clock, ShieldCheck, Facebook } from "lucide-react";
 
@@ -108,6 +109,47 @@ const ServiceAreaMap = () => {
 };
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    location: '',
+    service: 'Excavation/Clearing',
+    message: '',
+  });
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [errorMsg, setErrorMsg] = useState('');
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus('loading');
+    setErrorMsg('');
+
+    try {
+      const res = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || 'Something went wrong.');
+      }
+
+      setStatus('success');
+      setFormData({ name: '', email: '', phone: '', location: '', service: 'Excavation/Clearing', message: '' });
+    } catch (err: any) {
+      setStatus('error');
+      setErrorMsg(err.message || 'Failed to send. Please try again.');
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white">
       {/* Minimal Header */}
@@ -185,46 +227,128 @@ const Contact = () => {
                         <p className="text-zinc-400 text-sm italic max-w-md">Detailed information ensures a more accurate initial site estimate.</p>
                      </div>
 
-                     <form className="space-y-6">
+                     {status === 'success' ? (
+                       <motion.div
+                         initial={{ opacity: 0, y: 20 }}
+                         animate={{ opacity: 1, y: 0 }}
+                         className="text-center py-12"
+                       >
+                         <div className="w-16 h-16 border-2 border-brand-red flex items-center justify-center mx-auto mb-6">
+                           <ArrowRight className="w-8 h-8 text-brand-red rotate-[-90deg]" />
+                         </div>
+                         <h4 className="text-2xl font-black italic uppercase mb-3">Request Received</h4>
+                         <p className="text-zinc-400 mb-8 max-w-sm mx-auto text-sm italic">We'll review your project details and get back to you within 24 hours.</p>
+                         <button
+                           onClick={() => setStatus('idle')}
+                           className="text-brand-red font-black uppercase text-xs tracking-widest hover:text-white transition-colors"
+                         >
+                           Submit Another Request
+                         </button>
+                       </motion.div>
+                     ) : (
+                       <form onSubmit={handleSubmit} className="space-y-6">
                         <div className="grid md:grid-cols-2 gap-8">
                            <div className="space-y-2 group">
                               <label className="text-[10px] uppercase tracking-widest font-black text-brand-red">Full Name</label>
-                              <input type="text" className="w-full bg-transparent border-b-2 border-white/20 p-2 outline-none focus:border-brand-red transition-all font-bold text-lg" placeholder="John Smith" />
+                              <input
+                                type="text"
+                                name="name"
+                                value={formData.name}
+                                onChange={handleChange}
+                                required
+                                className="w-full bg-transparent border-b-2 border-white/20 p-2 outline-none focus:border-brand-red transition-all font-bold text-lg"
+                                placeholder="John Smith"
+                              />
                            </div>
                            <div className="space-y-2 group">
-                              <label className="text-[10px] uppercase tracking-widest font-black text-brand-red">Phone Number</label>
-                              <input type="tel" className="w-full bg-transparent border-b-2 border-white/20 p-2 outline-none focus:border-brand-red transition-all font-bold text-lg" placeholder="903-555-0100" />
+                              <label className="text-[10px] uppercase tracking-widest font-black text-brand-red">Email Address</label>
+                              <input
+                                type="email"
+                                name="email"
+                                value={formData.email}
+                                onChange={handleChange}
+                                required
+                                className="w-full bg-transparent border-b-2 border-white/20 p-2 outline-none focus:border-brand-red transition-all font-bold text-lg"
+                                placeholder="you@example.com"
+                              />
                            </div>
                         </div>
 
                         <div className="grid md:grid-cols-2 gap-8">
                            <div className="space-y-2 group">
-                              <label className="text-[10px] uppercase tracking-widest font-black text-brand-red">Project Location</label>
-                              <input type="text" className="w-full bg-transparent border-b-2 border-white/20 p-2 outline-none focus:border-brand-red transition-all font-bold text-lg" placeholder="Mt. Pleasant, TX" />
+                              <label className="text-[10px] uppercase tracking-widest font-black text-brand-red">Phone Number</label>
+                              <input
+                                type="tel"
+                                name="phone"
+                                value={formData.phone}
+                                onChange={handleChange}
+                                className="w-full bg-transparent border-b-2 border-white/20 p-2 outline-none focus:border-brand-red transition-all font-bold text-lg"
+                                placeholder="903-555-0100"
+                              />
                            </div>
                            <div className="space-y-2 group">
-                              <label className="text-[10px] uppercase tracking-widest font-black text-brand-red">Type of Work</label>
-                              <select className="w-full bg-black border-b-2 border-white/20 p-2 outline-none focus:border-brand-red transition-all font-bold text-lg appearance-none cursor-pointer">
-                                 <option>Excavation/Clearing</option>
-                                 <option>Site Prep/Grading</option>
-                                 <option>Driveway/Infra</option>
-                                 <option>Pond/Drainage</option>
-                              </select>
+                              <label className="text-[10px] uppercase tracking-widest font-black text-brand-red">Project Location</label>
+                              <input
+                                type="text"
+                                name="location"
+                                value={formData.location}
+                                onChange={handleChange}
+                                className="w-full bg-transparent border-b-2 border-white/20 p-2 outline-none focus:border-brand-red transition-all font-bold text-lg"
+                                placeholder="Mt. Pleasant, TX"
+                              />
                            </div>
                         </div>
 
                         <div className="space-y-2 group">
-                           <label className="text-[10px] uppercase tracking-widest font-black text-brand-red">Brief Scope of Work</label>
-                           <textarea rows={3} className="w-full bg-transparent border-b-2 border-white/20 p-2 outline-none focus:border-brand-red transition-all font-bold text-lg resize-none" placeholder="Describe the size and timeline of your project..."></textarea>
+                           <label className="text-[10px] uppercase tracking-widest font-black text-brand-red">Type of Work</label>
+                           <select
+                             name="service"
+                             value={formData.service}
+                             onChange={handleChange}
+                             className="w-full bg-black border-b-2 border-white/20 p-2 outline-none focus:border-brand-red transition-all font-bold text-lg appearance-none cursor-pointer"
+                           >
+                              <option>Excavation/Clearing</option>
+                              <option>Site Prep/Grading</option>
+                              <option>Driveway/Infra</option>
+                              <option>Pond/Drainage</option>
+                           </select>
                         </div>
 
+                        <div className="space-y-2 group">
+                           <label className="text-[10px] uppercase tracking-widest font-black text-brand-red">Brief Scope of Work</label>
+                           <textarea
+                             name="message"
+                             value={formData.message}
+                             onChange={handleChange}
+                             required
+                             rows={3}
+                             className="w-full bg-transparent border-b-2 border-white/20 p-2 outline-none focus:border-brand-red transition-all font-bold text-lg resize-none"
+                             placeholder="Describe the size and timeline of your project..."
+                           ></textarea>
+                        </div>
+
+                        {status === 'error' && (
+                          <motion.div
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="bg-red-500/10 border border-red-500/30 text-red-300 p-4 text-sm font-bold"
+                          >
+                            {errorMsg}
+                          </motion.div>
+                        )}
+
                         <div className="pt-4">
-                           <button className="group relative w-full bg-brand-red py-5 text-white font-black uppercase tracking-[0.4em] text-sm hover:bg-white hover:text-black transition-all flex items-center justify-center gap-4 overflow-hidden">
-                              <span className="relative z-10">Initiate Consultation</span>
-                              <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-3 transition-transform" />
+                           <button
+                             type="submit"
+                             disabled={status === 'loading'}
+                             className="group relative w-full bg-brand-red py-5 text-white font-black uppercase tracking-[0.4em] text-sm hover:bg-white hover:text-black transition-all flex items-center justify-center gap-4 overflow-hidden disabled:opacity-60 disabled:cursor-not-allowed"
+                           >
+                              <span className="relative z-10">{status === 'loading' ? 'Sending...' : 'Initiate Consultation'}</span>
+                              <ArrowRight className={`w-5 h-5 relative z-10 transition-transform ${status === 'loading' ? 'animate-pulse' : 'group-hover:translate-x-3'}`} />
                            </button>
                         </div>
-                     </form>
+                       </form>
+                     )}
                   </div>
                </div>
             </div>

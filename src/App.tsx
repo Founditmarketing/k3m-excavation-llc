@@ -1,3 +1,4 @@
+import React from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { HardHat, Truck, Ruler, Drill, Map, Phone, ArrowRight, Menu, X, Facebook, ChevronDown, Trees, Waves, Hammer, Settings } from "lucide-react";
 import { useState, useEffect } from "react";
@@ -533,6 +534,47 @@ const Portfolio = () => {
 };
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    service: 'Excavation & Land Clearing',
+    location: '',
+    message: '',
+  });
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [errorMsg, setErrorMsg] = useState('');
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus('loading');
+    setErrorMsg('');
+
+    try {
+      const res = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || 'Something went wrong.');
+      }
+
+      setStatus('success');
+      setFormData({ name: '', email: '', phone: '', service: 'Excavation & Land Clearing', location: '', message: '' });
+    } catch (err: any) {
+      setStatus('error');
+      setErrorMsg(err.message || 'Failed to send. Please try again.');
+    }
+  };
+
   return (
     <section id="contact" className="pt-12 pb-24 bg-zinc-50 relative overflow-hidden">
       {/* Decorative background text */}
@@ -599,70 +641,136 @@ const Contact = () => {
               </p>
             </div>
 
-            <form className="space-y-8">
-              <div className="grid md:grid-cols-2 gap-10">
-                <div className="space-y-3 group">
-                  <label className="text-[10px] uppercase tracking-widest font-black text-zinc-400 group-focus-within:text-brand-red transition-colors">Full Name</label>
-                  <input 
-                    type="text" 
-                    className="w-full bg-zinc-50 border-b-2 border-zinc-200 p-4 outline-none focus:border-brand-red transition-all font-bold text-sm tracking-tight" 
-                    placeholder="John Smith" 
-                  />
+            {status === 'success' ? (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-center py-16"
+              >
+                <div className="w-16 h-16 bg-brand-red/10 flex items-center justify-center mx-auto mb-6">
+                  <ArrowRight className="w-8 h-8 text-brand-red rotate-[-90deg]" />
                 </div>
-                <div className="space-y-3 group">
-                  <label className="text-[10px] uppercase tracking-widest font-black text-zinc-400 group-focus-within:text-brand-red transition-colors">Contact Phone</label>
-                  <input 
-                    type="tel" 
-                    className="w-full bg-zinc-50 border-b-2 border-zinc-200 p-4 outline-none focus:border-brand-red transition-all font-bold text-sm tracking-tight" 
-                    placeholder="903.563.0000" 
-                  />
+                <h4 className="text-2xl font-black italic uppercase mb-3">Request Received</h4>
+                <p className="text-zinc-500 mb-8 max-w-sm mx-auto">We'll review your project details and get back to you within 24 hours.</p>
+                <button
+                  onClick={() => setStatus('idle')}
+                  className="text-brand-red font-black uppercase text-xs tracking-widest hover:text-black transition-colors"
+                >
+                  Submit Another Request
+                </button>
+              </motion.div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-8">
+                <div className="grid md:grid-cols-2 gap-10">
+                  <div className="space-y-3 group">
+                    <label className="text-[10px] uppercase tracking-widest font-black text-zinc-400 group-focus-within:text-brand-red transition-colors">Full Name</label>
+                    <input 
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                      className="w-full bg-zinc-50 border-b-2 border-zinc-200 p-4 outline-none focus:border-brand-red transition-all font-bold text-sm tracking-tight" 
+                      placeholder="John Smith" 
+                    />
+                  </div>
+                  <div className="space-y-3 group">
+                    <label className="text-[10px] uppercase tracking-widest font-black text-zinc-400 group-focus-within:text-brand-red transition-colors">Email Address</label>
+                    <input 
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      className="w-full bg-zinc-50 border-b-2 border-zinc-200 p-4 outline-none focus:border-brand-red transition-all font-bold text-sm tracking-tight" 
+                      placeholder="you@example.com" 
+                    />
+                  </div>
                 </div>
-              </div>
 
-              <div className="grid md:grid-cols-2 gap-10">
-                <div className="space-y-3 group">
-                  <label className="text-[10px] uppercase tracking-widest font-black text-zinc-400 group-focus-within:text-brand-red transition-colors">Service Type</label>
-                  <div className="relative">
-                    <select className="w-full bg-zinc-50 border-b-2 border-zinc-200 p-4 outline-none focus:border-brand-red transition-all font-bold text-sm tracking-tight appearance-none cursor-pointer">
-                      <option>Excavation & Land Clearing</option>
-                      <option>Grading & Drainage</option>
-                      <option>Infrastructure / Driveways</option>
-                      <option>Residential Site Prep</option>
-                    </select>
-                    <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
-                      <ArrowRight className="w-4 h-4 rotate-90 text-zinc-300" />
+                <div className="grid md:grid-cols-2 gap-10">
+                  <div className="space-y-3 group">
+                    <label className="text-[10px] uppercase tracking-widest font-black text-zinc-400 group-focus-within:text-brand-red transition-colors">Contact Phone</label>
+                    <input 
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      className="w-full bg-zinc-50 border-b-2 border-zinc-200 p-4 outline-none focus:border-brand-red transition-all font-bold text-sm tracking-tight" 
+                      placeholder="903.563.0000" 
+                    />
+                  </div>
+                  <div className="space-y-3 group">
+                    <label className="text-[10px] uppercase tracking-widest font-black text-zinc-400 group-focus-within:text-brand-red transition-colors">Service Type</label>
+                    <div className="relative">
+                      <select
+                        name="service"
+                        value={formData.service}
+                        onChange={handleChange}
+                        className="w-full bg-zinc-50 border-b-2 border-zinc-200 p-4 outline-none focus:border-brand-red transition-all font-bold text-sm tracking-tight appearance-none cursor-pointer"
+                      >
+                        <option>Excavation & Land Clearing</option>
+                        <option>Grading & Drainage</option>
+                        <option>Infrastructure / Driveways</option>
+                        <option>Residential Site Prep</option>
+                      </select>
+                      <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                        <ArrowRight className="w-4 h-4 rotate-90 text-zinc-300" />
+                      </div>
                     </div>
                   </div>
                 </div>
+
                 <div className="space-y-3 group">
                   <label className="text-[10px] uppercase tracking-widest font-black text-zinc-400 group-focus-within:text-brand-red transition-colors">Service Location</label>
                   <input 
-                    type="text" 
+                    type="text"
+                    name="location"
+                    value={formData.location}
+                    onChange={handleChange}
                     className="w-full bg-zinc-50 border-b-2 border-zinc-200 p-4 outline-none focus:border-brand-red transition-all font-bold text-sm tracking-tight" 
                     placeholder="City / Area" 
                   />
                 </div>
-              </div>
 
-              <div className="space-y-3 group">
-                <label className="text-[10px] uppercase tracking-widest font-black text-zinc-400 group-focus-within:text-brand-red transition-colors">Project Scope</label>
-                <textarea 
-                  rows={3} 
-                  className="w-full bg-zinc-50 border-b-2 border-zinc-200 p-4 outline-none focus:border-brand-red transition-all font-bold text-sm tracking-tight resize-none" 
-                  placeholder="Enter a few details about your project needs..."
-                ></textarea>
-              </div>
+                <div className="space-y-3 group">
+                  <label className="text-[10px] uppercase tracking-widest font-black text-zinc-400 group-focus-within:text-brand-red transition-colors">Project Scope</label>
+                  <textarea 
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    rows={3} 
+                    className="w-full bg-zinc-50 border-b-2 border-zinc-200 p-4 outline-none focus:border-brand-red transition-all font-bold text-sm tracking-tight resize-none" 
+                    placeholder="Enter a few details about your project needs..."
+                  ></textarea>
+                </div>
 
-              <div className="pt-6">
-                <button type="button" className="group relative w-full bg-brand-red py-6 text-white font-bold uppercase tracking-[0.4em] text-lg hover:bg-black transition-all flex items-center justify-center gap-4 group">
-                  <span>Send Request</span>
-                  <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
-                  
-                  {/* Decorative corner accent */}
-                  <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-white/20 group-hover:border-brand-red transition-colors" />
-                </button>
-              </div>
-            </form>
+                {status === 'error' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="bg-red-50 border border-red-200 text-red-700 p-4 text-sm font-bold"
+                  >
+                    {errorMsg}
+                  </motion.div>
+                )}
+
+                <div className="pt-6">
+                  <button
+                    type="submit"
+                    disabled={status === 'loading'}
+                    className="group relative w-full bg-brand-red py-6 text-white font-bold uppercase tracking-[0.4em] text-lg hover:bg-black transition-all flex items-center justify-center gap-4 disabled:opacity-60 disabled:cursor-not-allowed"
+                  >
+                    <span>{status === 'loading' ? 'Sending...' : 'Send Request'}</span>
+                    <ArrowRight className={cn("w-6 h-6 transition-transform", status === 'loading' ? 'animate-pulse' : 'group-hover:translate-x-2')} />
+                    
+                    {/* Decorative corner accent */}
+                    <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-white/20 group-hover:border-brand-red transition-colors" />
+                  </button>
+                </div>
+              </form>
+            )}
           </div>
         </div>
       </div>
