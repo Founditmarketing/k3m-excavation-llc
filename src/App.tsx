@@ -4,6 +4,7 @@ import { HardHat, Truck, Ruler, Drill, Map, Phone, ArrowRight, Menu, X, Facebook
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Link, useLocation } from "react-router-dom";
 import { cn } from "@/src/lib/utils";
+import { Analytics } from "@vercel/analytics/react";
 import AboutPage from "./pages/About";
 import ContactPage from "./pages/Contact";
 import LandClearing from "./pages/services/LandClearing";
@@ -894,6 +895,7 @@ export default function Layout() {
         </main>
         <FooterWrapper />
       </div>
+      <Analytics />
     </BrowserRouter>
   );
 }
