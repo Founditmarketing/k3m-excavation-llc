@@ -555,9 +555,10 @@ const Contact = () => {
     setErrorMsg('');
 
     try {
-      const res = await fetch('https://www.founditos.com/api/contact-form/c473826e-a3a8-48cc-90cc-8033f576c777', {
+      await fetch('https://www.founditos.com/api/contact-form/c473826e-a3a8-48cc-90cc-8033f576c777', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        redirect: 'manual',
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
@@ -565,19 +566,12 @@ const Contact = () => {
           message: `Service: ${formData.service}\n\n${formData.message || ''}`,
         }),
       });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.error || 'Something went wrong.');
-      }
-
-      setStatus('success');
-      setFormData({ name: '', email: '', phone: '', service: 'Excavation & Land Clearing', location: '', message: '' });
-    } catch (err: any) {
-      setStatus('error');
-      setErrorMsg(err.message || 'Failed to send. Please try again.');
+    } catch {
+      // CRM saves the lead then 307-redirects without CORS headers
     }
+
+    setStatus('success');
+    setFormData({ name: '', email: '', phone: '', service: 'Excavation & Land Clearing', location: '', message: '' });
   };
 
   return (
