@@ -42,13 +42,13 @@ Utility trenching, routing, and backfill for water, electrical, and fiber. Preci
 
 ## Pages
 
-- Home: https://k3mexcavation.com/
-- About: https://k3mexcavation.com/about
-- Gallery: https://k3mexcavation.com/gallery
-- Contact: https://k3mexcavation.com/contact
-- Land Clearing: https://k3mexcavation.com/services/land-clearing
-- Site Prep: https://k3mexcavation.com/services/site-prep
-- Driveways: https://k3mexcavation.com/services/driveways
-- Drainage: https://k3mexcavation.com/services/drainage
-- Demolition: https://k3mexcavation.com/services/demolition
-- Utilities: https://k3mexcavation.com/services/utilities
+- Home: https://www.k3mexcavation.com/
+- About: https://www.k3mexcavation.com/about
+- Gallery: https://www.k3mexcavation.com/gallery
+- Contact: https://www.k3mexcavation.com/contact
+- Land Clearing: https://www.k3mexcavation.com/services/land-clearing
+- Site Prep: https://www.k3mexcavation.com/services/site-prep
+- Driveways: https://www.k3mexcavation.com/services/driveways
+- Drainage: https://www.k3mexcavation.com/services/drainage
+- Demolition: https://www.k3mexcavation.com/services/demolition
+- Utilities: https://www.k3mexcavation.com/services/utilities

@@ -1,10 +1,30 @@
 import { motion } from "motion/react";
 import { Droplet as Drop, ShieldCheck, ArrowRight, Waves } from "lucide-react";
 import { Link } from "react-router-dom";
+import PageSEO, { BUSINESS_ID } from "@/src/components/PageSEO";
 
 const Drainage = () => {
   return (
     <div className="pt-24 min-h-screen bg-white">
+      <PageSEO
+        title="Pond & Drainage Solutions | K3M Excavation — Mount Pleasant, TX"
+        description="Stock pond construction, drainage correction, and water management solutions from K3M Excavation in Mount Pleasant and Northeast Texas."
+        path="/services/drainage"
+        image="/pond_drainage_excavation.png"
+        breadcrumbs={[
+          { name: "Home", path: "/" },
+          { name: "Services", path: "/#services" },
+          { name: "Ponds & Advanced Drainage", path: "/services/drainage" },
+        ]}
+        schema={{
+          "@type": "Service",
+          name: "Pond & Drainage Solutions",
+          description: "Stock pond excavation, drainage correction, and water management for rural and residential properties.",
+          provider: { "@id": BUSINESS_ID },
+          areaServed: "Northeast Texas",
+          url: "https://www.k3mexcavation.com/services/drainage",
+        }}
+      />
       <section className="bg-black text-white py-24 md:py-32 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-1/3 h-full bg-brand-red/10 blur-3xl" />
         <div className="max-w-7xl mx-auto px-6 relative z-10">

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "motion/react";
 import { Phone, Mail, MapPin, ArrowRight, Clock, ShieldCheck, Facebook } from "lucide-react";
+import PageSEO from "@/src/components/PageSEO";
 
 const ServiceAreaMap = () => {
   return (
@@ -157,6 +158,15 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen bg-white">
+      <PageSEO
+        title="Contact K3M Excavation | Free Estimates in Mount Pleasant, TX"
+        description="Request a free quote from K3M Excavation. Call (903) 563-4750 or submit a project request for excavation, grading, drainage, or demolition services across Northeast Texas."
+        path="/contact"
+        breadcrumbs={[
+          { name: "Home", path: "/" },
+          { name: "Contact", path: "/contact" },
+        ]}
+      />
       {/* Minimal Header */}
       <section className="bg-black text-white pt-32 pb-16 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-1/2 h-full bg-brand-red/5 -skew-x-12 translate-x-1/4" />

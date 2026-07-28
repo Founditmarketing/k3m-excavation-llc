@@ -1,10 +1,30 @@
 import { motion } from "motion/react";
 import { Drill, ShieldCheck, ArrowRight, Hammer } from "lucide-react";
 import { Link } from "react-router-dom";
+import PageSEO, { BUSINESS_ID } from "@/src/components/PageSEO";
 
 const Demolition = () => {
   return (
     <div className="pt-24 min-h-screen bg-white">
+      <PageSEO
+        title="Demolition & Site Reclamation | K3M Excavation — Mount Pleasant, TX"
+        description="Structural demolition and site restoration services in Northeast Texas. K3M Excavation handles teardown and reclamation with surgical precision."
+        path="/services/demolition"
+        image="/demolition_service.png"
+        breadcrumbs={[
+          { name: "Home", path: "/" },
+          { name: "Services", path: "/#services" },
+          { name: "Demolition & Reclamation", path: "/services/demolition" },
+        ]}
+        schema={{
+          "@type": "Service",
+          name: "Demolition & Site Reclamation",
+          description: "Structural demolition and site restoration for residential and commercial properties.",
+          provider: { "@id": BUSINESS_ID },
+          areaServed: "Northeast Texas",
+          url: "https://www.k3mexcavation.com/services/demolition",
+        }}
+      />
       <section className="bg-black text-white py-24 md:py-32 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-1/3 h-full bg-brand-red/10 blur-3xl" />
         <div className="max-w-7xl mx-auto px-6 relative z-10">

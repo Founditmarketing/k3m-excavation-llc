@@ -1,10 +1,30 @@
 import { motion } from "motion/react";
 import { Trees as Tree, ShieldCheck, ArrowRight, Truck } from "lucide-react";
 import { Link } from "react-router-dom";
+import PageSEO, { BUSINESS_ID } from "@/src/components/PageSEO";
 
 const LandClearing = () => {
   return (
     <div className="pt-24 min-h-screen bg-white">
+      <PageSEO
+        title="Land Clearing & Forestry Mulching | K3M Excavation — Mount Pleasant, TX"
+        description="Professional land clearing, forestry mulching, and stump removal in Northeast Texas. K3M Excavation reclaims overgrown property with zero-waste precision."
+        path="/services/land-clearing"
+        image="/k3m1.jpg"
+        breadcrumbs={[
+          { name: "Home", path: "/" },
+          { name: "Services", path: "/#services" },
+          { name: "Land Clearing & Mulching", path: "/services/land-clearing" },
+        ]}
+        schema={{
+          "@type": "Service",
+          name: "Land Clearing & Forestry Mulching",
+          description: "Forestry mulching, tree and stump removal, and pasture reclamation for residential and commercial properties.",
+          provider: { "@id": BUSINESS_ID },
+          areaServed: "Northeast Texas",
+          url: "https://www.k3mexcavation.com/services/land-clearing",
+        }}
+      />
       <section className="bg-black text-white py-24 md:py-32 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-1/3 h-full bg-brand-red/10 blur-3xl" />
         <div className="max-w-7xl mx-auto px-6 relative z-10">

@@ -1,10 +1,30 @@
 import { motion } from "motion/react";
 import { Ruler, ShieldCheck, ArrowRight, Target } from "lucide-react";
 import { Link } from "react-router-dom";
+import PageSEO, { BUSINESS_ID } from "@/src/components/PageSEO";
 
 const SitePrep = () => {
   return (
     <div className="pt-24 min-h-screen bg-white">
+      <PageSEO
+        title="Site Prep & GPS Grading | K3M Excavation — Mount Pleasant, TX"
+        description="GPS-guided site preparation and precision grading for residential and commercial pads in Mount Pleasant and Northeast Texas."
+        path="/services/site-prep"
+        image="/k3m2.jpg"
+        breadcrumbs={[
+          { name: "Home", path: "/" },
+          { name: "Services", path: "/#services" },
+          { name: "Site Prep & GPS Grading", path: "/services/site-prep" },
+        ]}
+        schema={{
+          "@type": "Service",
+          name: "Site Prep & GPS Grading",
+          description: "GPS-guided grading and pad construction for residential and commercial building sites.",
+          provider: { "@id": BUSINESS_ID },
+          areaServed: "Northeast Texas",
+          url: "https://www.k3mexcavation.com/services/site-prep",
+        }}
+      />
       <section className="bg-black text-white py-24 md:py-32 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-1/3 h-full bg-brand-red/10 blur-3xl" />
         <div className="max-w-7xl mx-auto px-6 relative z-10">

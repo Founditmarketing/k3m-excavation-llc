@@ -4,6 +4,7 @@ import { HardHat, Truck, Ruler, Drill, Map, Phone, ArrowRight, Menu, X, Facebook
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Link, useLocation } from "react-router-dom";
 import { cn } from "@/src/lib/utils";
+import PageSEO from "@/src/components/PageSEO";
 import AboutPage from "./pages/About";
 import ContactPage from "./pages/Contact";
 import LandClearing from "./pages/services/LandClearing";
@@ -21,6 +22,7 @@ interface Service {
   description: string;
   icon: any;
   path: string;
+  image: string;
 }
 
 // --- Constants ---
@@ -845,11 +847,44 @@ const Footer = () => {
 const Home = () => {
   return (
     <>
+      <PageSEO
+        title="K3M Excavation LLC | Excavation & Demolition in Mount Pleasant, TX"
+        description="K3M Excavation LLC — family-owned, GPS-guided excavation, demolition, and land clearing in Mount Pleasant and Northeast Texas. Licensed & insured. Call (903) 563-4750."
+        path="/"
+      />
       <Hero />
       <Services />
       <K3MCore />
       <Portfolio />
       <Contact />
+    </>
+  );
+};
+
+const NotFound = () => {
+  return (
+    <>
+      <PageSEO
+        title="Page Not Found | K3M Excavation LLC"
+        description="The page you're looking for doesn't exist. Return to the K3M Excavation homepage to find our services in Mount Pleasant and Northeast Texas."
+        path="/404"
+        noIndex
+      />
+      <section className="min-h-screen flex flex-col items-center justify-center bg-white text-center px-6 pt-24">
+        <span className="text-brand-red font-black uppercase tracking-[0.4em] text-xs italic mb-6">Error 404</span>
+        <h1 className="text-5xl md:text-7xl font-black italic uppercase leading-none mb-8">
+          Page Not <span className="text-brand-red">Found.</span>
+        </h1>
+        <p className="text-zinc-600 text-lg max-w-xl mb-12 italic">
+          The page you're looking for doesn't exist or has moved. Let's get you back on solid ground.
+        </p>
+        <Link
+          to="/"
+          className="bg-brand-red text-white px-10 py-5 text-sm font-bold uppercase tracking-[0.2em] hover:bg-black transition-all flex items-center gap-3"
+        >
+          Back To Home <ArrowRight className="w-5 h-5" />
+        </Link>
+      </section>
     </>
   );
 };
@@ -889,6 +924,7 @@ export default function Layout() {
             <Route path="/services/drainage" element={<Drainage />} />
             <Route path="/services/demolition" element={<Demolition />} />
             <Route path="/services/utilities" element={<Utilities />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
         <FooterWrapper />

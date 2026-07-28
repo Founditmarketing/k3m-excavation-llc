@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "motion/react";
 import { Camera, X } from "lucide-react";
 import { useState } from "react";
+import PageSEO from "@/src/components/PageSEO";
 
 const GALLERY_IMAGES = [
   {
@@ -82,6 +83,16 @@ const GalleryPage = () => {
 
   return (
     <div className="pt-24 min-h-screen bg-white relative">
+      <PageSEO
+        title="Project Gallery | K3M Excavation LLC — Mount Pleasant, TX"
+        description="Browse photos of K3M Excavation's completed site prep, land clearing, drainage, demolition, and utility projects across Mount Pleasant and Northeast Texas."
+        path="/gallery"
+        image="/k3m10.jpg"
+        breadcrumbs={[
+          { name: "Home", path: "/" },
+          { name: "Gallery", path: "/gallery" },
+        ]}
+      />
       {/* Header section */}
       <section className="bg-black text-white py-20 md:py-28 relative overflow-hidden">
         <div className="absolute inset-0 opacity-20 bg-[url('/k3m10.jpg')] bg-cover bg-center" />

@@ -1,10 +1,21 @@
 import { motion } from "motion/react";
 import { HardHat, Users, Target, ShieldCheck, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import PageSEO from "@/src/components/PageSEO";
 
 const About = () => {
   return (
     <div className="pt-24 min-h-screen bg-white">
+      <PageSEO
+        title="About K3M Excavation | Family-Owned Contractor in Mount Pleasant, TX"
+        description="Family-owned, faith-driven excavation contractor with 20+ years of experience serving Mount Pleasant and Northeast Texas. Learn our story, values, and GPS-guided approach."
+        path="/about"
+        image="/k3m8.jpg"
+        breadcrumbs={[
+          { name: "Home", path: "/" },
+          { name: "About", path: "/about" },
+        ]}
+      />
       {/* Hero Section */}
       <section className="relative py-12 md:py-16 overflow-hidden bg-black text-white">
         {/* Background Accent */}

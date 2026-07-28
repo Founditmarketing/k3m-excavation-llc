@@ -1,10 +1,30 @@
 import { motion } from "motion/react";
 import { Drill, ShieldCheck, ArrowRight, Settings } from "lucide-react";
 import { Link } from "react-router-dom";
+import PageSEO, { BUSINESS_ID } from "@/src/components/PageSEO";
 
 const Utilities = () => {
   return (
     <div className="pt-24 min-h-screen bg-white">
+      <PageSEO
+        title="Underground Utility Installation | K3M Excavation — Mount Pleasant, TX"
+        description="Utility trenching and routing for water, electrical, and fiber lines in Mount Pleasant and Northeast Texas. GPS-guided underground utility excavation."
+        path="/services/utilities"
+        image="/utilities_service.png"
+        breadcrumbs={[
+          { name: "Home", path: "/" },
+          { name: "Services", path: "/#services" },
+          { name: "Underground Utilities", path: "/services/utilities" },
+        ]}
+        schema={{
+          "@type": "Service",
+          name: "Underground Utility Installation",
+          description: "Utility trenching, routing, and backfill for water, electrical, and fiber lines.",
+          provider: { "@id": BUSINESS_ID },
+          areaServed: "Northeast Texas",
+          url: "https://www.k3mexcavation.com/services/utilities",
+        }}
+      />
       <section className="bg-black text-white py-24 md:py-32 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-1/3 h-full bg-brand-red/10 blur-3xl" />
         <div className="max-w-7xl mx-auto px-6 relative z-10">
